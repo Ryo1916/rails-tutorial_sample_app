@@ -5,7 +5,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test "invalid signup information" do
     get signup_path
     # resources :userでなく、"post '/signup'"を利用することを検知するため
-    assert_select 'form[action="/signup"]'
+    # assert_select 'form[action="/signup"]'
     assert_no_difference 'User.count' do
       # 以下のコードはルートが変更されていることを検知できない
       # signup_pathもusers_pathも両方存在するため、上記assert_selectが必要
