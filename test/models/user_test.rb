@@ -74,6 +74,6 @@ class UserTest < ActiveSupport::TestCase
   
   # 複数ブラウザ利用時にログアウトした際のエラー回避テスト
   test "authenticated? should return false for a user with nil digest" do
-    assert_not @user.authenticated?('')
+    assert_not @user.authenticated?(:remember, '')
   end
 end
