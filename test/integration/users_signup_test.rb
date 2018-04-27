@@ -4,6 +4,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   
   # 初期化しておかないと、並行して行われる他のテストでメールが配信されたときにエラーが発生
   def setup
+    @non_activated_user = users(:non_activated)
     ActionMailer::Base.deliveries.clear
   end
   
@@ -53,5 +54,14 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_not flash.empty?
     assert is_logged_in?
+  end
+  
+  test "valid signup test with non activated account" do
+    log_in_as(@non_activated_user)
+    assert_not @non_activated_user.activated?
+    get users_path
+    assert_select "a[href=?]", user_path(@non_activated_user), count: 0
+    get user_path(@non_activated_user)
+    assert_redirected_to root_url
   end
 end
