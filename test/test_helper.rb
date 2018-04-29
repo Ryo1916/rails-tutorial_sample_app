@@ -23,6 +23,7 @@ end
 
 # 統合テスト用クラス
 class ActionDispatch::IntegrationTest
+  include ApplicationHelper
 
   # テストユーザーとしてログインする
   def log_in_as(user, password: 'password', remember_me: '1')
