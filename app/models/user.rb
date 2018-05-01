@@ -102,6 +102,26 @@ class User < ApplicationRecord
     Micropost.where("user_id = ?", id)
   end
   
+  # ユーザをフォローする
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+  
+  # ユーザをフォロー解除する
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+  
+  # 現在のユーザがフォローしていたらtrueを返す
+  def following?(other_user)
+    following.include?(other_user)
+  end
+  
+  # 現在のユーザがフォローされていたらtrueを返す
+  def follower?(other_user)
+    followers.include?(other_user)
+  end
+  
   private
   
     def downcase_email
