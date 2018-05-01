@@ -29,6 +29,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", edit_user_path
     assert_select "a[href=?]", logout_path
     assert_select "a[href=?]", "http://gravatar.com/emails"
+    # To check follow stats
     get root_path
     assert_select 'div.stats'
     assert_select "a[href=?]", following_user_path(@user.id)
