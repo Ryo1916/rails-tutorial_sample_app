@@ -89,10 +89,9 @@ class UserTest < ActiveSupport::TestCase
     michael = users(:michael)
     archer = users(:archer)
     assert_not michael.following?(archer)
-    assert_not michael.follower?(archer)
+    assert michael.follower?(archer)  # Already followed in relationships.yml
     michael.follow(archer)
     assert michael.following?(archer)
-    archer.follow(michael)
     assert michael.follower?(archer)
     michael.unfollow(archer)
     assert_not michael.following?(archer)
